@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const minutesTextDiv = document.getElementById("minutes-text");
-  const editMinutesBtn = document.getElementById("edit-minutes-btn");
+  const editMinutesBtn = document.getElementById("edit-all-btn");
 
   const checkMinutesText = function () {
     const minutesText = minutesTextDiv.innerText.toLowerCase();
