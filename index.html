@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MinutesInSeconds</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="javascript.js"></script>
+    <style>
+      .content-section-row {
+        display: flex;
+        justify-content: space-between;
+      }
+      .content-section {
+        flex: 1;
+        margin-right: 20px;
+      }
+      .content-section:last-child {
+        margin-right: 0;
+      }
+      .action-items-container {
+        display: flex;
+        flex-direction: column;
+      }
+      .action-item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        padding-left: 10px; /* Padding for action items */
+        border-radius: 12px;
+        margin-bottom: 12px;
+        background-color: #eee;
+      }
+
+      .action-item-row span {
+        flex: 0 0 60%; /* Adjusted width for action items */
+      }
+
+      .assign-input {
+        width: 85px; /* Adjusted width for assign input */
+        margin-left: -15px; /* Margin between action item and assign input */
+        border-radius: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        background-color: #f8f8f8; /* Same grey as action item box */
+      }
+
+      .edit-mode {
+        width: 100%; /* Adjust this value to change the width of the editable action item box */
+        padding: 0px;
+        margin-left: 0; /* Adjust this value to change the margin between the action item and assign input in edit mode */
+        background-color: #eee;
+        border-radius: 5px;
+        height: 24px;
+      }
+
+      .title-header .edit-mode {
+        background-color: #fff;
+        color: #666;
+        border-color: #777;
+        height: 46px;
+        text-align: left;
+        font-weight: bold;
+      }
+
+      .action-item-row .edit-mode {
+        width: 65%; /* Adjust this value to change the width of the editable action item box */
+      }
+
+      .assign-label {
+        background-color: #ccc; /* Same yellow as other components */
+        border: none; /* Remove border */
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        display: inline-block;
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: hidden; /* Hide overflow text */
+        text-overflow: ellipsis; /* Show ellipsis for overflow text */
+      }
+
+      .suggestion-list {
+        border: 1px solid #ccc;
+        max-height: none;
+        overflow-y: visible;
+        position: absolute;
+        background: white;
+        z-index: 10;
+        max-width: 200px;
+        border-radius: 5px;
+      }
+      .suggestion-list div {
+        padding: 5px;
+        cursor: pointer;
+      }
+      .suggestion-list div:hover {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body class="d-flex min-vh-100 bg-light" style="overflow-x: hidden">
+    <div class="content-container w-100">
+      <div
+        class="title-header mb-4"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <h1
+          id="meeting-title"
+          style="margin: 0px; font-weight: bold; flex-basis: 84%"
+        >
+          Chalet Welfare Event Planning Meeting
+        </h1>
+        <button
+          id="edit-all-btn"
+          class="btn btn-secondary"
+          style="
+            flex-basis: 16%;
+            margin-left: 15px;
+            height: 44px;
+            font-size: 1.1rem;
+          "
+        >
+          <i class="bi bi-pencil" style="margin-right: 8px"></i>Edit All
+        </button>
+      </div>
+      <div class="final-content">
+        <div class="content-section-row mb-2">
+          <div class="content-section">
+            <h3>Participants</h3>
+            <ul>
+              <li id="participants" style="border-radius: 12px">
+                Alex Thompson, Jamie Patel, Taylor Reynolds, Casey Lee, Jordan
+                Miller
+              </li>
+            </ul>
+          </div>
+          <div class="content-section">
+            <h3>Description</h3>
+            <ul
+              style="
+                max-width: 100%;
+                overflow-wrap: break-word;
+                overflow-y: auto;
+                height: auto;
+              "
+            >
+              <li id="description" style="border-radius: 12px">
+                <span id="description-text" class="description-text"
+                  >Planning meeting for the Chalet Welfare Event scheduled for
+                  August 16, 2024.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-section-row mb-3">
+          <div class="content-section">
+            <h3>Agenda</h3>
+            <ul id="agenda-list">
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                1. Event Overview and Objectives
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                2. Venue and Logistics
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                3. Budget and Fundraising
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                4. Marketing and Promotion
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                5. Volunteer Coordination
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                6. Entertainment and Activities
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                7. Safety and Health Measures
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                8. Post-Event Evaluation
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                9. Next Steps and Follow-Up
+              </li>
+              <li style="border-radius: 12px; margin-bottom: 12px">
+                10. Agenda Summaries
+              </li>
+            </ul>
+          </div>
+          <div class="content-section">
+            <h3>Action Items</h3>
+            <div class="action-items-container">
+              <ul id="action-items" style="margin-bottom: 0px">
+                <li class="action-item-row">
+                  <span>Assign tasks to team members</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+                <li class="action-item-row">
+                  <span>Finalize event budget</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+                <li class="action-item-row">
+                  <span>Confirm venue reservation</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+                <li class="action-item-row">
+                  <span>Develop marketing strategy</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+                <li class="action-item-row">
+                  <span>Coordinate volunteer training</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+                <li class="action-item-row">
+                  <span>Organize entertainment schedule</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+                <li class="action-item-row">
+                  <span>Implement health and safety protocols</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+                <li class="action-item-row">
+                  <span>Collect feedback and evaluations</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+                <li class="action-item-row">
+                  <span>Review meeting notes and action items</span>
+                  <input
+                    type="text"
+                    class="assign-input"
+                    placeholder="Assign"
+                  />
+                </li>
+              </ul>
+              <button
+                id="add-action-item-btn"
+                style="
+                  display: none;
+                  border-radius: 12px;
+                  background-color: #333;
+                  margin-right: 15px;
+                  font-weight: bold;
+                "
+              >
+                Add Action Item
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="content-section">
+          <h3>Minutes</h3>
+          <div id="minutes-text">
+                <p>
+                  <strong><u>Event Overview and Objectives</u></strong><br>
+                  The main goals were reviewed, focusing on community engagement
+                  and raising funds for local charities. Decided on event
+                  features including a BBQ, live music, kids' games, and a
+                  silent auction. Confirmed the event's start time at 12:00 PM
+                  and end time at 6:00 PM. Discussed the need for clear signage
+                  and information booths to guide attendees.
+                  <br><br>
+                  Venue and Logistics<br>
+                  Confirmed the booking of the chalet, including access for
+                  setup and teardown. Discussed logistics like parking space
+                  management, with a plan to use adjacent fields for overflow
+                  parking. Agreed on layout plans for activity zones, including
+                  designated areas for food, entertainment, and games. Taylor to
+                  finalize arrangements with the venue regarding power supply
+                  and emergency exits. 
+                  <br><br>
+                  Budget and Fundraising<br> 
+                  Reviewed the preliminary budget, including estimated costs for food,
+                  entertainment, and decorations. Established a fundraising goal
+                  of $5,000 with a breakdown of expected contributions from
+                  sponsors and ticket sales. Jamie to prepare a detailed budget
+                  and explore potential sponsors. Discussed ticket pricing and
+                  pre-sale options to maximize early revenue.
+                  <br><br>
+                  Marketing and Promotion<br>
+                  Outlined a comprehensive marketing plan, including social
+                  media, local press, and community bulletin boards. Agreed on
+                  creating an event website with registration and donation
+                  capabilities. Casey to design promotional materials and
+                  coordinate with local media. Discussed strategies for engaging
+                  community influencers and local businesses.
+                  <br><br>
+                  Volunteer Coordination<br>
+                  Identified the need for volunteers for various roles including
+                  setup, managing activity stations, and cleanup. Jordan will
+                  create a sign-up form and distribute it through local schools
+                  and community centers. Discussed volunteer training sessions
+                  to ensure smooth event execution. Set a goal to recruit at
+                  least 20 volunteers by August 10.
+                  <br><br>
+                  Entertainment and Activities<br>
+                  Decided on live music acts, including a local band and a solo
+                  performer. Alex will contact and finalize bookings. Planned
+                  for kids' activities such as face painting and a bounce house,
+                  with Jamie handling these arrangements. Discussed the setup of
+                  a silent auction with donated items. Casey will oversee
+                  collection and organization. Agreed to include a raffle with
+                  prizes donated by local businesses, managed by Jordan.
+                  <br><br>
+                  Safety and Health Measures<br>
+                  Reviewed necessary health protocols including sanitation
+                  stations and first aid availability. Casey and Taylor to
+                  coordinate with local health authorities for guidance on
+                  safety measures. Discussed emergency plans, including
+                  evacuation procedures and contact information for emergency
+                  services. Set up a dedicated safety team from among volunteers
+                  to monitor and manage health concerns during the event.
+                  <br><br>
+                  Post-Event Evaluation<br>
+                  Planned for a post-event survey to gather feedback from
+                  attendees, volunteers, and sponsors. Discussed a debrief
+                  meeting to evaluate the event’s success and areas for
+                  improvement. Alex to draft a survey and create a report
+                  summarizing feedback and overall outcomes. Set a timeline for
+                  post-event analysis and follow-up with sponsors and
+                  volunteers.
+                  <br><br>
+                  Next Steps and Follow-Up<br>
+                  Confirmed action item deadlines and scheduled the next
+                  planning meeting for August 9, 2024. Agreed to send out
+                  updates to all team members regarding their assigned tasks.
+                  Discussed the importance of maintaining clear communication as
+                  the event date approaches.
+                </p>
+          </div>
+          <div class="downloads-container p-2">
+            <div class="button m-0">
+              <a
+                href="/download_gen_minutes?id=<%= @meeting.id %>&format=pdf"
+                class="m-0 btn btn-primary text-start"
+              >
+                <span class="d-flex align-items-center">
+                  <i class="bi bi-download mr-2"></i> Generated Minutes
+                </span>
+              </a>
+            </div>
+            <div class="button m-0">
+              <a
+                href="/download_mp3?id=<%= @meeting.id %>"
+                class="m-0 btn btn-primary text-start"
+              >
+                <span class="d-flex align-items-center">
+                  <i class="bi bi-download mr-2"></i> Recording (.mp3)
+                </span>
+              </a>
+            </div>
+            <div class="button m-0">
+              <a
+                href="/download_transcript?id=<%= @meeting.id %>"
+                class="m-0 btn btn-primary text-start"
+              >
+                <span class="d-flex align-items-center">
+                  <i class="bi bi-download mr-2"></i> Transcript (.txt)
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,851 @@
+body {
+  font-family: Nunito, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.content-container {
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 40px); /* Adjust height to fit within the viewport */
+  display: flex;
+  flex-direction: column;
+}
+
+.title-header {
+  background-color: #fff;
+  color: #000;
+  text-align: left;
+  border-radius: 13px;
+  margin-bottom: 20px; /* Adjust this value to increase/decrease spacing */
+}
+
+.final-content {
+  flex-grow: 1;
+  overflow-y: auto; /* Use 'auto' instead of 'hidden' to allow scrollbar to appear when content overflows */
+  scrollbar-width: thin; /* For Firefox: Make scrollbar thinner */
+}
+
+.final-content::-webkit-scrollbar {
+  width: 5px; /* Adjust scrollbar width as needed */
+}
+
+.final-content::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+.final-content::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+  border-radius: 5px; /* Rounded corners for the thumb */
+}
+
+.final-content::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+.content-section-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content-section {
+  flex: 1;
+  margin-right: 10px; /* Adjust spacing between sections */
+}
+
+.content-section h2 {
+  margin-top: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background: #eee;
+  margin-bottom: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 400px;
+}
+
+.downloads-container {
+  position: fixed;
+  bottom: 20px; /* Adjust top position as needed */
+  right: 20px; /* Adjust right position as needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  padding: 6px; /* Adjust padding for smaller container */
+  background-color: white;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+  width: 30%; /* Adjust container width as needed */
+  max-width: 230px; /* Limit maximum width if necessary */
+  z-index: 1000;
+}
+
+.downloads-container .button {
+  width: 100%; /* Full width button */
+  max-width: 210px; /* Limit maximum width of the button */
+  padding: 6px; /* Add padding for buttons */
+}
+
+.downloads-container .button:last-child {
+  border-bottom: none; /* Remove bottom border for the last button */
+}
+
+.downloads-container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: left; /* Align text to the left */
+}
+
+.downloads-container button i {
+  margin-right: 5px; /* Reduce icon margin */
+  font-size: 16px; /* Adjust icon size */
+}
+
+.downloads-container button:hover {
+  background-color: #f0f0f0;
+}
+
+.flip-icon {
+  transform: scaleX(-1); /* This will flip the icon horizontally */
+  border: none; /* Optional: remove button border */
+  background: none; /* Optional: remove button background */
+  cursor: pointer; /* Optional: change cursor to pointer */
+  font-size: 0.8em; /* Optional: adjust size as needed */
+}
+
+.edit-buttons {
+  margin-left: 10px;
+}
+
+.content-section-row {
+  display: flex;
+  justify-content: space-between;
+}
+.content-section {
+  flex: 1;
+  margin-right: 20px;
+}
+.content-section:last-child {
+  margin-right: 0;
+}
+.action-items-container {
+  display: flex;
+  flex-direction: column;
+}
+.action-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  background-color: #f8f8f8;
+  padding-left: 10px; /* Padding for action items */
+  border-radius: 5px; /* Rounded corners for the grey box */
+}
+
+.action-item-row span {
+  flex: 0 0 60%; /* Adjusted width for action items */
+}
+
+.assign-input {
+  width: 85px; /* Adjusted width for assign input */
+  margin-left: -15px; /* Margin between action item and assign input */
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8; /* Same grey as action item box */
+}
+
+.edit-mode {
+  width: 60%; /* Adjust this value to change the width of the editable action item box */
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-left: 0; /* Adjust this value to change the margin between the action item and assign input in edit mode */
+}
+
+.assign-label {
+  background-color: #ffea00; /* Same yellow as other components */
+  border: none; /* Remove border */
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Show ellipsis for overflow text */
+}
+
+.suggestion-list {
+  border: 1px solid #ccc;
+  max-height: none;
+  overflow-y: visible;
+  position: absolute;
+  background: white;
+  z-index: 10;
+  max-width: 200px;
+  border-radius: 5px;
+}
+.suggestion-list div {
+  padding: 5px;
+  cursor: pointer;
+}
+.suggestion-list div:hover {
+  background: #eee;
+}
+
+/* Style for the Add Action Item button */
+#add-action-item-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff; /* Primary color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#add-action-item-btn:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+#add-action-item-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Focus outline */
+}
+
+#add-action-item-btn:disabled {
+  background-color: #cccccc; /* Disabled state color */
+  cursor: not-allowed;
+}
+
+/* nxt sheet */
+body {
+  font-family: Nunito, sans-serif;
+  overflow: hidden;
+}
+
+html {
+  margin: 0;
+  height: 100%;
+}
+
+.transcript {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.timer {
+  background-color: #ffea00;
+  padding: 20px;
+  border-radius: 10px;
+  color: #000;
+  text-align: center;
+}
+
+.next-topic-btn {
+  background-color: #ffea00;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.next-topic-btn:hover {
+  background-color: #ffea00;
+}
+
+.show_media_btn {
+  background-color: #ffea00;
+  color: black;
+  font-weight: 450;
+  border-radius: 40px;
+}
+
+.icon {
+  font-size: 36px; /* Adjust this value to make icons bigger or smaller */
+}
+
+.initially-hidden {
+  display: none;
+}
+
+.show-item {
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.timer-btn {
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.timer-item {
+  background-color: #ffea00;
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+  height: 120px;
+}
+
+.underline {
+  width: 100%;
+  height: 3px;
+  background-color: #000; /* Adjust this value if needed */
+}
+
+.highlightedAGENDA {
+  background-color: #6c757d !important; /* Gray background */
+  color: white !important; /* White text */
+}
+
+.show-agenda-item {
+  background-color: transparent; /* Gray background */
+  color: rgba(161, 161, 161, 0.847); /* White text */
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+#finish_button {
+  border: none;
+}
+
+.show_agenda::-webkit-scrollbar {
+  width: 0px; /* For Chrome, Safari, and Opera */
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 20px; /* Adjust to desired distance from bottom */
+  right: 50px; /* Adjust to desired distance from right */
+  z-index: 1000;
+  background-color: transparent; /* No background color */
+}
+
+#participant-input {
+  margin-bottom: 20px; /* Adjust the value as needed */
+}
+
+#participant-list {
+  margin-top: 20px; /* Adjust the value as needed */
+}
+
+.participant-box {
+  display: inline-block;
+  background-color: #e0e0e0;
+  padding: 5px 10px;
+  margin-right: 12px;
+  margin-bottom: 5px;
+  border-radius: 12px;
+}
+
+.remove-participant {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.content-section-row {
+  display: flex;
+  justify-content: space-between;
+}
+.content-section {
+  flex: 1;
+  margin-right: 20px;
+}
+.content-section:last-child {
+  margin-right: 0;
+}
+.action-items-container {
+  display: flex;
+  flex-direction: column;
+}
+.action-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  background-color: #f8f8f8;
+  padding-left: 10px; /* Padding for action items */
+  border-radius: 5px; /* Rounded corners for the grey box */
+}
+.action-item-row span {
+  flex: 0 0 60%; /* Adjusted width for action items */
+}
+.assign-input {
+  width: 85px; /* Adjusted width for assign input */
+  margin-left: -15px; /* Margin between action item and assign input */
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+.edit-mode {
+  width: 60%; /* Adjust this value to change the width of the editable action item box */
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-left: 0; /* Adjust this value to change the margin between the action item and assign input in edit mode */
+}
+.assign-label {
+  background-color: #ffea00; /* Same yellow as other components */
+  border: none; /* Remove border */
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Show ellipsis for overflow text */
+}
+.suggestion-list {
+  border: 1px solid #ccc;
+  max-height: none;
+  overflow-y: visible;
+  position: absolute;
+  background: white;
+  z-index: 10;
+  max-width: 200px;
+  border-radius: 5px;
+}
+.agenda-item {
+  margin-bottom: 15px; /* Adjust this value to increase the gap */
+  position: relative;
+  background-color: #e5e5e5 
+}
+.suggestion-list div {
+  padding: 5px;
+  cursor: pointer;
+}
+.suggestion-list div:hover {
+  background: #eee;
+}
+.hover-add {
+  position: absolute;
+  bottom: -15%; /* Adjust this value to position the button half inside and half outside */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: none;
+  background-color: black !important; /* Black background */
+  color: white !important; /* White font */
+  height: 45%; /* Adjust this value as needed */
+  padding: 0; /* Remove padding to ensure the size is based on the height */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hover-add .btn {
+  font-size: 0.8em; /* Smaller font size */
+  padding: 0 5px; /* Adjust padding for a smaller button */
+  height: 100%; /* Make the button take up the full height of the .hover-add element */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black !important; /* Black background */
+  color: white !important; /* White font */
+  border: none; /* Remove border */
+}
+.hover-add .btn .plus-sign {
+  font-weight: bold; /* Bold the plus sign */
+  margin-right: 2px; /* Adjust space between + and Add New */
+}
+.hover-add .btn .add-new-text {
+  font-weight: normal; /* Keep the Add New text un-bolded */
+}
+
+/* next sheet */
+
+/* Updated Sidebar styling */
+.sidebar {
+  width: 250px;
+  background-color: #e9ecef; /* Slightly darker grey for the sidebar */
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto; /* Changed from overflow-x to overflow-y to handle vertical scroll */
+  padding-right: 20px; /* Added padding to move content inward */
+  transition: width 0.5s ease; /* Add smooth transition for width */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 10px; /* Add padding to the left of the sidebar */
+  /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
+}
+
+.sidebar.minimized {
+  width: 30px; /* Reduced width when minimized */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  padding-left: 10px;
+  padding-right: 0px;
+}
+
+.app-logo {
+  width: 32px; /* Adjust the width as needed */
+  height: 32px; /* Adjust the height as needed */
+  margin: 0px; /* Adjust margins as needed */
+  position: relative;
+  top: 5px; /* Adjust top position */
+  left: 0px; /* Adjust left position */
+}
+
+.inverted {
+  filter: invert(1);
+}
+
+.app-logo,
+.pen-icon {
+  cursor: pointer;
+}
+
+.pen-icon {
+  width: 28px; /* Adjust the width as needed */
+  height: 28px; /* Adjust the height as needed */
+  margin: 0px; /* Adjust margins as needed */
+  position: relative;
+  top: 5px; /* Adjust top position */
+  left: 0px; /* Adjust left position */
+}
+
+.sidebar-content {
+  margin-top: 10px; /* Adjust this value to create more space */
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: #e9ecef;
+  padding: 5px;
+  border-radius: 5px;
+  transition: right 0.5s ease;
+}
+
+.arrow {
+  font-size: 32px;
+  color: black;
+}
+
+.arrowhead {
+  font-size: 32px;
+  color: black;
+}
+
+.sidebar-footer {
+  text-align: center;
+  padding: 22px;
+  margin-top: auto;
+  position: relative;
+  padding-left: 12px;
+  padding-right: 2px;
+}
+
+.info-text {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #ffea00; /* Set the color for the primary button */
+  border: none;
+  color: black; /* Set text color for visibility */
+  width: 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
+  border-radius: 10px
+}
+
+.btn-primary:hover {
+  background-color: #f0db00; /* Hover color for the primary button */
+  color: #000
+}
+
+.btn-secondary {
+  background-color: black; /* Set the color for the secondary button */
+  border: none;
+  color: white; /* Set text color for visibility */
+  width: 100%;
+  font-weight: bold;
+  border-radius: 10px
+}
+
+.btn-secondary:hover {
+  background-color: #444; /* Hover color for the secondary button */
+}
+
+/* Minimized sidebar */
+.sidebar-minimized {
+  width: 30px; /* Reduced width to match the minimized sidebar */
+  height: 100%;
+  background-color: #e9ecef; /* Same color as the sidebar */
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-x: hidden;
+  transition: width 0.5s ease; /* Add smooth transition for width */
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  display: none; /* Initially hidden */
+  border: 2px solid #d3d3d3; /* Add a border to make it noticeable */
+}
+
+.sidebar-minimized.visible {
+  display: flex;
+}
+
+/* Hide the content of the sidebar when minimized */
+.sidebar.minimized .sidebar-header,
+.sidebar.minimized .sidebar-footer,
+.sidebar.minimized .sidebar-content {
+  display: none;
+}
+
+/* Styling for time frames */
+.time-frame {
+  font-size: 14px; /* Smaller font size for time frames */
+  color: gray;
+}
+
+.highlighted {
+  background-color: #ffea00; /* Yellow background for the current meeting */
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Styling for clickable meeting titles */
+.meeting-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  padding: 5px 0;
+}
+
+/* Popup styling */
+.signout-popup {
+  display: none; /* Initially hidden */
+  position: absolute;
+  left: 50%;
+  bottom: 120px; /* Position above the sign out button */
+  transform: translateX(-50%);
+  background-color: white;
+  width: 100%; /* Make the popup the same width as the buttons */
+  padding: 10px; /* Reduced padding for shorter popup */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1100;
+  text-align: center;
+}
+
+.signout-popup p {
+  margin-bottom: 10px; /* Reduced margin for shorter popup */
+}
+
+.signout-popup .popup-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.signout-popup .btn {
+  width: 45%; /* Make buttons smaller */
+}
+
+.signout-button {
+  margin-bottom: 10px; /* Position above the name button */
+}
+
+/* Style for the main content area to adjust when the sidebar is visible */
+.main-content {
+  transition: margin-left 0.5s ease; /* Add smooth transition for margin */
+}
+
+.main-content.shifted {
+  margin-left: 250px; /* Adjust to the width of the sidebar */
+}
+
+.main-content.minimized {
+  margin-left: 30px; /* Adjust to the width of the minimized sidebar */
+}
+
+/* Centralize the form */
+.centralized-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px; /* Set a max width for the form */
+  padding: 20px; /* Optional: add padding for better appearance */
+  background: white; /* White background for the form */
+  border: 2px solid black; /* Black border */
+  text-align: center; /* Center the text */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.login-logo {
+  width: 120px; /* Adjust the width as needed for triple size */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Add some space below the logo */
+}
+
+.actions .btn-login {
+  background-color: black; /* Black background for login button */
+  color: white; /* White text for login button */
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px; /* Rounded edges */
+  margin-top: 10px; /* Add some space above the button */
+}
+
+.actions .btn-signup {
+  background-color: #ffea00; /* Yellow background for sign-up button */
+  color: black; /* Black text for sign-up button */
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px; /* Rounded edges */
+  margin-top: 10px; /* Add some space above the button */
+}
+
+.form-container .form-field {
+  width: 100%;
+  margin-bottom: 15px; /* Space between form fields */
+}
+
+.form-container .form-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-container .form-field input::placeholder {
+  color: #bbb;
+}
+
+.form-control::placeholder {
+  color: #bbb;
+}
+
+.agenda-input::placeholder {
+  color: #bbb; /* Set the color to your desired color */
+}
+
+.form-container .signup-link {
+  margin-top: 20px;
+  display: block;
+}
+
+.form-container .signup-link a {
+  color: blue; /* Link color */
+  text-decoration: none;
+}
+
+.form-container .forgot-password-link {
+  margin-top: 10px;
+  display: block;
+}
+
+.form-container .forgot-password-link a {
+  color: blue; /* Link color */
+  text-decoration: none;
+}
+
+.form-container .back-to-login-link {
+  margin-top: 20px;
+  display: block;
+}
+
+.form-container .back-to-login-link a {
+  color: blue; /* Link color */
+  text-decoration: none;
+}
+
+.right-handed {
+  transform: scaleX(-1); /* RISKY. Flips the element horizontally */
+}
+
+.meeting-item {
+  padding-left: 15px; /* Adjust this value as needed */
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.meeting-item:not(.highlighted):hover {
+  background-color: #ddd; /* Light grey background on hover */
+  border-radius: 10px; /* Rounded corners on hover */
+}
+
+.sidebar-heading {
+  padding-left: 6px; /* Adjust this value as needed */
+  font-size: smaller;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: #d9534f; /* Bootstrap error color */
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.line-divider {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.overflow-fade {
+  overflow: hidden;
+  white-space: nowrap; /* Prevent wrapping */
+  opacity: 1; /* Adjust opacity for fade effect */
+  transition: opacity 0.7s ease; /* Smooth transition */
+}
