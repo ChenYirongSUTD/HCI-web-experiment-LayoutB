@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const searchText =
         "established a fundraising goal of $5,000 with a breakdown of expected contributions from sponsors and ticket sales".toLowerCase();
       const textAfterBudget = minutesText.substring(budgetAndFundraisingIndex);
+      console.log(textAfterBudget.includes(searchText));
+      console.log("edit clicked!");
       if (textAfterBudget.includes(searchText)) {
         const questionElement = document.getElementById("question3");
         if (questionElement) {
@@ -26,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add event listener to the Save button
   editMinutesBtn.addEventListener("click", function () {
-    checkMinutesText();
+    setTimeout(function () {
+      checkMinutesText();
+    }, 10);
   });
 });
