@@ -11,15 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
     if (budgetAndFundraisingIndex !== -1) {
       const searchText = "Seek out Casey".toLowerCase();
       const textAfterBudget = minutesText.substring(budgetAndFundraisingIndex);
-        console.log(textAfterBudget);
-        console.log(searchText);
+      console.log(textAfterBudget);
+      console.log(searchText);
       console.log(textAfterBudget.includes(searchText));
       console.log("edit clicked!");
       if (
         textAfterBudget.includes(searchText) &&
         textAfterBudget.length <= 200
       ) {
-        const questionElement = document.getElementById("question3");
+        const questionElement = document.getElementById("question5");
         if (questionElement) {
           questionElement.style.display = "block";
         }
