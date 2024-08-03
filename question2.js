@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
   const removeCaseyInput = document.getElementById("remove-casey");
-  const editActionItemsBtn = document.getElementById("edit-action-items-btn");
+  const editActionItemsBtn = document.getElementById("edit-all-btn");
 
   const isNotAssignLabelAndNotInEditMode = function () {
     return (
       !removeCaseyInput.classList.contains("assign-label") &&
-      editActionItemsBtn.textContent.trim() === "Edit"
+      editActionItemsBtn.textContent.trim() === "Edit All"
     );
   };
 

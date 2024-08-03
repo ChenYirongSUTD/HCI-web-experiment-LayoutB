@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const minutesInput = document.querySelector(
         "#minutes-text > textarea.edit-mode"
       );
-      console.log(minutesInput);
       if (minutesInput) {
         const minutesText = minutesInput.value;
         const minutesElement = document.getElementById("minutes-text");
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ];
 
         let formattedText = minutesText.replace(/\n/g, "<br>");
-        console.log(formattedText);
         keywords.forEach((keyword) => {
           const regex = new RegExp(`(${keyword})`, "g");
           formattedText = formattedText.replace(
